@@ -22,10 +22,10 @@ class PlotColor(Enum):
     FADED_8 = "#c49c94"     # light brown
     FADED_9 = "#e7ba52"     # light yellow
 
-def plot_result(x_indices, y_adaptive, sigma_val, color, linestyle, linewidth):
+def plot_result(x_indices, y_adaptive, sigma_val, color, linestyle, linewidth, zorder):
     # === PLOTTING ===
     if len(x_indices) > 0:
-        plt.plot(x_indices, y_adaptive, label=f'c={sigma_val}', color=color.value, linestyle=linestyle, linewidth=linewidth)
+        plt.plot(x_indices, y_adaptive, label=f'c={sigma_val}', color=color.value, linestyle=linestyle, linewidth=linewidth, zorder=zorder)
         #pprint(x_indices)
         #pprint(y_adaptive)
     else:
@@ -49,6 +49,8 @@ if __name__ == "__main__":
     #pprint(DATASET_CONFIG)
     dataset_name, config = next(iter(DATASET_CONFIG.items()))
     #print(dataset_name,config)
+    print(f"\n=== 🚀 PROCESSING: {dataset_name} ===")
+    print(f"⚙️ Config: Fading(λ)={config['fading_factor']} | Horizon={config['horizon']}")
 
 
     study = optuna.create_study(direction="maximize")
@@ -88,11 +90,14 @@ if __name__ == "__main__":
     for t, color in zip(sorted(study.trials, key=lambda t: t.value, reverse=True), colors):
         print(f"c = {t.params['c']}  objective = {t.value:.6f}")
         sigma_val = t.params['c']
-        if first_two > 0:
-            plot_result(results[sigma_val]["x"], results[sigma_val]["scores"], sigma_val, color, linestyle='-', linewidth=3)
+        if first_two == 2:
+            plot_result(results[sigma_val]["x"], results[sigma_val]["scores"], sigma_val, color, linestyle='-', linewidth=3, zorder=11)
+            first_two -= 1
+        elif first_two == 1:   
+            plot_result(results[sigma_val]["x"], results[sigma_val]["scores"], sigma_val, color, linestyle='-', linewidth=3, zorder=10)                 
             first_two -= 1
         else:
-            plot_result(results[sigma_val]["x"], results[sigma_val]["scores"], sigma_val, color, linestyle='--',linewidth=1)
+            plot_result(results[sigma_val]["x"], results[sigma_val]["scores"], sigma_val, color, linestyle='--',linewidth=1,zorder=1)
 
 
     #===Closing the plot===#

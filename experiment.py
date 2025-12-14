@@ -20,7 +20,7 @@ import river
 #     },
 #     "News-T": {
 #         "filename": "News-T",
-#         "fading_factor": 0.001,
+#         "fading_factor": 0.005,
 #         "tgap": 200,
 #         "horizon": 1000
 #     },
@@ -50,11 +50,11 @@ import river
 #     }
 # }
 DATASET_CONFIG = {
-    "NT": {
-        "filename": "NT",
+    "News-T": {
+        "filename": "News-T",
         "fading_factor": 0.005,
         "tgap": 200,
-        "horizon": 2000
+        "horizon": 1000
     }
 }
 
@@ -111,8 +111,6 @@ def run_benchmark_on_dataset(name, config, sigma_val):
         print(f"❌ SKIPPING {name}: File not found.")
         return
 
-    print(f"\n=== 🚀 PROCESSING: {name} ===")
-    print(f"⚙️ Config: Fading(λ)={config['fading_factor']} | Horizon={config['horizon']}")
 
     #model_fixed = create_pipeline(False, config, sigma_val)
     model_adaptive = create_pipeline(True, config, sigma_val)
@@ -131,7 +129,7 @@ def run_benchmark_on_dataset(name, config, sigma_val):
     stream = load_stream(filepath)
     count = 0
     errors_caught = 0
-    print(f'Sigma Value:{sigma_val}')
+    print(f'Sigma Coefficient Value:{sigma_val}')
 
     for i, text, true_label in stream:
         count += 1
