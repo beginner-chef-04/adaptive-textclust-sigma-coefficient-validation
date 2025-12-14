@@ -104,11 +104,16 @@ if __name__ == "__main__":
     plt.title(f'Sigma Coefficient Value Validation: {dataset_name} (λ={config["fading_factor"]})')
     plt.xlabel('Stream Position')
     plt.ylabel('NMI Score')
-    plt.legend()
+    plt.legend(
+    loc="center left",
+    bbox_to_anchor=(1.02, 0.5),
+    fontsize=9
+    )
+
     plt.grid(True, linestyle=':', alpha=0.6)
     
     safe_name = dataset_name.replace(" ", "_")
     filename = f"result_{safe_name}.png"
-    plt.savefig(filename)
+    plt.savefig(filename, dpi=200, bbox_inches="tight")
     print(f"✅ Saved Plot: {filename}")
     plt.close()

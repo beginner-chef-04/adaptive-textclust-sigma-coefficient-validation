@@ -44,17 +44,17 @@ import river
 #     },
 #     "SO-T": {
 #         "filename": "SO-T",
-#         "fading_factor": 0.001,
+#         "fading_factor": 0.005,
 #         "tgap": 200,
 #         "horizon": 5000
 #     }
 # }
 DATASET_CONFIG = {
-    "News-T": {
-        "filename": "News-T",
+    "SO-T": {
+        "filename": "SO-T",
         "fading_factor": 0.005,
         "tgap": 200,
-        "horizon": 1000
+        "horizon": 5000
     }
 }
 
