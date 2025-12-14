@@ -50,11 +50,11 @@ import river
 #     }
 # }
 DATASET_CONFIG = {
-    "SO-T": {
-        "filename": "SO-T",
-        "fading_factor": 0.005,
+    "Trends-T": {
+        "filename": "Trends-T",
+        "fading_factor": 0.01,
         "tgap": 200,
-        "horizon": 5000
+        "horizon": 5000      
     }
 }
 
